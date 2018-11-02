@@ -16,10 +16,14 @@ public class ManipulaEventos extends javax.swing.JFrame {
     
     
     
-    public void loadTable(){
+    public void loadTable(java.awt.Frame parent, Agenda agenda){
         
         DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Código", "Nome", "Data", "Horário", "Global" },0);
         tbEventos.setModel(modelo);
+        
+        for(int i = 0; i < agenda.totalEventos(); i++){
+        }
+
         
     }
 

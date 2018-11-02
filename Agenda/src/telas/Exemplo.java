@@ -16,7 +16,7 @@ public class Exemplo extends javax.swing.JFrame {
         
         for(int i = 0; i < listaAgendas.size(); i++){
             Object linha[] = new Object[]{ listaAgendas.get(i).getIdAgenda(), 
-                                        listaAgendas.get(i).getNomeAgenda()};
+                                           listaAgendas.get(i).getNomeAgenda()};
             modelo.addRow(linha);
         }
     }
