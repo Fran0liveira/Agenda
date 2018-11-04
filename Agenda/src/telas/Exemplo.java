@@ -16,7 +16,7 @@ public class Exemplo extends javax.swing.JFrame {
         
         for(int i = 0; i < listaAgendas.size(); i++){
             Object linha[] = new Object[]{ listaAgendas.get(i).getIdAgenda(), 
-                                           listaAgendas.get(i).getNomeAgenda()};
+                                        listaAgendas.get(i).getNomeAgenda()};
             modelo.addRow(linha);
         }
     }
@@ -27,7 +27,7 @@ public class Exemplo extends javax.swing.JFrame {
         initComponents();
         listaAgendas = new ArrayList();
         setLocationRelativeTo(null); //faz com que a tela inicializa no centro
-        txtId.setEditable(false);
+        txtId.setEnabled(false);
         modo = "Navegar";
         manipulaInterface();
     }
@@ -39,6 +39,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(false);
                 btnLimpar.setEnabled(false);
                 btnNova.setEnabled(true);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 break;
@@ -48,6 +49,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(true);
                 btnLimpar.setEnabled(true);
                 btnNova.setEnabled(false);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 
@@ -57,7 +59,8 @@ public class Exemplo extends javax.swing.JFrame {
                 btnSalvar.setEnabled(true);
                 btnCancelar.setEnabled(true);
                 btnLimpar.setEnabled(true);
-                btnNova.setEnabled(true);
+                btnNova.setEnabled(false);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 break;
@@ -67,6 +70,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(false);
                 btnLimpar.setEnabled(true);
                 btnNova.setEnabled(true);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 break;
@@ -76,6 +80,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(false);
                 btnLimpar.setEnabled(false);
                 btnNova.setEnabled(true);
+                btnMani.setEnabled(true);
                 btnEditar.setEnabled(true);
                 btnExcluir.setEnabled(true);
                 break;
@@ -148,6 +153,23 @@ public class Exemplo extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         tbAgendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -178,11 +200,13 @@ public class Exemplo extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tbAgendas);
-        if (tbAgendas.getColumnModel().getColumnCount() > 0) {
-            tbAgendas.getColumnModel().getColumn(0).setResizable(false);
-        }
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Agenda"));
+        jPanel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel4MouseClicked(evt);
+            }
+        });
 
         jLabel1.setText("Código");
 
@@ -338,8 +362,35 @@ public class Exemplo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+        tbAgendas.clearSelection();
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        tbAgendas.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+        tbAgendas.clearSelection();
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void btnManiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManiActionPerformed
+        // TODO add your handling code here:
+        int index = tbAgendas.getSelectedRow();
+        if(index>=0 && index < listaAgendas.size()){
+            ManipulaEventos m = new ManipulaEventos(this, listaAgendas.get(index));
+            m.setVisible(true);
+        }
+    }//GEN-LAST:event_btnManiActionPerformed
+
     private void btnNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaActionPerformed
         // TODO add your handling code here:
+        txtId.setText("");
+        txtNome.setText("");
+        txtNome.requestFocus();
         modo = "Nova";
         manipulaInterface();
     }//GEN-LAST:event_btnNovaActionPerformed
@@ -359,6 +410,11 @@ public class Exemplo extends javax.swing.JFrame {
         modo = "Navegar";
         manipulaInterface();
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void jPanel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel4MouseClicked
+        // TODO add your handling code here:
+        tbAgendas.clearSelection();
+    }//GEN-LAST:event_jPanel4MouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
@@ -403,18 +459,7 @@ public class Exemplo extends javax.swing.JFrame {
             modo = "Selecao";
             manipulaInterface();
         }
-
     }//GEN-LAST:event_tbAgendasMouseClicked
-
-    private void btnManiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManiActionPerformed
-        // TODO add your handling code here:
-        int index = tbAgendas.getSelectedRow();
-        if(index>=0 && index < listaAgendas.size()){
-            ManipulaEventos m = new ManipulaEventos(this, listaAgendas.get(index));
-            m.setVisible(true);
-        }
-
-    }//GEN-LAST:event_btnManiActionPerformed
 
     /**
      * @param args the command line arguments

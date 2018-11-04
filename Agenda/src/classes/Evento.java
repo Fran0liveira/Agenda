@@ -35,6 +35,12 @@ public final class Evento {
         this.setNomeEvento(nomeEvento);
         this.setId();
     }
+    public Evento(String nomeEvento, String horario, Calendar data, boolean global){
+        this.setNomeEvento(nomeEvento);
+        this.setHorario(horario);
+        this.setData(data);
+        this.setGlobal(global);
+    }
 
     public int getId() {
         return id;
@@ -99,6 +105,35 @@ public final class Evento {
         c1.set(Calendar.MINUTE, minuto);
         this.data= c1.getTime();
     }
+        public void setData(int dia, int mes, int ano) {
+        
+        Calendar c1 = GregorianCalendar.getInstance();
+        if(dia < 1 || dia > 30){
+            throw new RuntimeException("Dia informado não é válido!");
+        }
+        if(mes < 1 || mes > 12){
+            throw new RuntimeException("Mês informado não é válido!");
+        }
+        if(ano < c1.get(Calendar.YEAR)){
+            throw new RuntimeException("Ano informado não é válido!");
+        }
+       
+        c1.set(Calendar.YEAR, ano);
+        c1.set(Calendar.MONTH, mes-1);
+        c1.set(Calendar.DAY_OF_MONTH, dia);
+        this.data= c1.getTime();
+    }
+    public void setData(Calendar c){
+        this.setData(c.DAY_OF_MONTH, c.MONTH, c.YEAR);
+    }
+    public void setHorario(String horario){
+       int hora = Integer.parseInt(horario.substring(0, 1));
+       int minuto = Integer.parseInt(horario.substring(3, 4));
+       Calendar c1 = GregorianCalendar.getInstance();
+       c1.set(Calendar.HOUR_OF_DAY, hora);
+       c1.set(Calendar.MINUTE, minuto);
+       this.data = c1.getTime();
+    }
     
      public String dataToString(){
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -156,6 +191,9 @@ public final class Evento {
         DateFormat df = new SimpleDateFormat("HH:mm");
         String s = df.format(this.getDuracao());
         return s;
+    }
+    public void setGlobal(boolean global){
+        this.global = global;
     }
     
 
