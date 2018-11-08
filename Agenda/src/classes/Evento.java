@@ -124,6 +124,7 @@ public final class Evento {
         this.data= c1.getTime();
     }
     public void setData(Calendar data){
+        this.data = data.getTime();
         
     }
     public void setHorario(String horario){
@@ -141,10 +142,6 @@ public final class Evento {
         c1.set(Calendar.HOUR_OF_DAY, hora);
         c1.set(Calendar.MINUTE, minuto);
         this.data = c1.getTime();
-    }
-    public String getHorario(){
-        String h = horarioToString();
-        return h;
     }
     public String horarioToString(){
         DateFormat df = new SimpleDateFormat("HH:mm");

@@ -28,8 +28,8 @@ public final class ManipulaEventos extends javax.swing.JFrame {
         for(int i = 0; i < agenda.eventos.size(); i++){
             Object linha[] = new Object[]{ agenda.eventos.get(i).getId(), 
                                            agenda.eventos.get(i).getNome(),
-                                           agenda.eventos.get(i).getData(),
-                                           agenda.eventos.get(i).getHorario(),
+                                           agenda.eventos.get(i).dataToString(),
+                                           agenda.eventos.get(i).horarioToString(),
                                            agenda.eventos.get(i).getDuracao(),
                                            agenda.eventos.get(i).isGlobal()};
                                          
