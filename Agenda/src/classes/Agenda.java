@@ -1,7 +1,10 @@
 package classes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 //modificado
@@ -56,6 +59,9 @@ public final class Agenda{
                 }
             }
         return null;
+    }
+    public Evento getEventoByIndex(int i){  
+        return eventos.get(i);
     }
 
     
@@ -153,6 +159,12 @@ public final class Agenda{
         numEventos++;
         return e;
     }
+    public Evento addEvento(String nomeEvento, Calendar data, String horario, String duracao, boolean global) {
+        Evento e = new Evento(nomeEvento, data, horario, duracao, global);
+        this.eventos.add(e);
+        numEventos++;
+        return e;
+    }
     public Evento addEvento(Evento evento){
         this.eventos.add(evento);
         numEventos++;
@@ -161,6 +173,7 @@ public final class Agenda{
     public int getNumEventos(){
         return numEventos;
     }
+    
 
 }
 	

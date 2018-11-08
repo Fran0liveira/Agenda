@@ -39,6 +39,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(false);
                 btnLimpar.setEnabled(false);
                 btnNova.setEnabled(true);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 break;
@@ -48,6 +49,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(true);
                 btnLimpar.setEnabled(true);
                 btnNova.setEnabled(false);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 
@@ -58,15 +60,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(true);
                 btnLimpar.setEnabled(true);
                 btnNova.setEnabled(true);
-                btnEditar.setEnabled(false);
-                btnExcluir.setEnabled(false);
-                break;
-            case "Excluir":
-                txtNome.setEnabled(false);
-                btnSalvar.setEnabled(false);
-                btnCancelar.setEnabled(false);
-                btnLimpar.setEnabled(true);
-                btnNova.setEnabled(true);
+                btnMani.setEnabled(false);
                 btnEditar.setEnabled(false);
                 btnExcluir.setEnabled(false);
                 break;
@@ -76,6 +70,7 @@ public class Exemplo extends javax.swing.JFrame {
                 btnCancelar.setEnabled(false);
                 btnLimpar.setEnabled(false);
                 btnNova.setEnabled(true);
+                btnMani.setEnabled(true);
                 btnEditar.setEnabled(true);
                 btnExcluir.setEnabled(true);
                 break;
@@ -215,22 +210,21 @@ public class Exemplo extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addComponent(btnSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLimpar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtId))
-                        .addGroup(jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtId))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(225, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(

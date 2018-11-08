@@ -1,11 +1,11 @@
 package classes;
 
+import classes.Agenda;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
 
 public final class Evento {
 	
@@ -24,13 +24,21 @@ public final class Evento {
 
 
     //contrutor 
-    public Evento(String nomeEvento, int dia, int mes, int ano, int horas,int minutos, boolean global, int duracaoHora, int duracaoMinuto) {
-        this.setNomeEvento(nomeEvento);
-        this.setData(dia, mes, ano, horas, minutos);
+    public Evento(String nomeEvento, Calendar data, String horario, String duracao, boolean global){
         this.setId();
-        this.setDuracao(duracaoHora, duracaoMinuto);
-        this.global = global;
+        this.setNomeEvento(nomeEvento);
+        this.setGlobal(global);
+        this.setHorario(horario);
+        this.setData(data);
     }
+    public Evento(String nomeEvento, int dia, int mes, int ano, int hora, int minuto, boolean global, int duracaoHora, int duracaoMinuto){
+        this.setId();
+        this.setNomeEvento(nomeEvento);
+        this.setGlobal(global);
+        this.setData(dia, mes, ano, hora, minuto);
+        this.setDuracao(duracaoHora, duracaoMinuto);
+    }
+    
     public Evento(String nomeEvento){
         this.setNomeEvento(nomeEvento);
         this.setId();
@@ -95,13 +103,57 @@ public final class Evento {
         c1.set(Calendar.YEAR, ano);
         c1.set(Calendar.MONTH, mes-1);
         c1.set(Calendar.DAY_OF_MONTH, dia);
+        this.data= c1.getTime();
+    }
+    public void setData(int dia, int mes, int ano) {
+        
+        Calendar c1 = GregorianCalendar.getInstance();
+        if(dia < 1 || dia > 30){
+            throw new RuntimeException("Dia informado não é válido!");
+        }
+        if(mes < 1 || mes > 12){
+            throw new RuntimeException("Mês informado não é válido!");
+        }
+        if(ano < c1.get(Calendar.YEAR)){
+            throw new RuntimeException("Ano informado não é válido!");
+        }
+        
+        c1.set(Calendar.YEAR, ano);
+        c1.set(Calendar.MONTH, mes-1);
+        c1.set(Calendar.DAY_OF_MONTH, dia);
+        this.data= c1.getTime();
+    }
+    public void setData(Calendar data){
+        
+    }
+    public void setHorario(String horario){
+        Calendar c1 = GregorianCalendar.getInstance();
+        
+        int hora = Integer.parseInt(horario.substring(0, 1));
+        int minuto = Integer.parseInt(horario.substring(3, 4));
+        
+        if( hora < 0 || hora > 24){
+            throw new RuntimeException("Hora informada não é válida");
+        }
+        if( minuto < 0 || minuto > 60){
+            throw new RuntimeException("Minuto informado não é válido");
+        }
         c1.set(Calendar.HOUR_OF_DAY, hora);
         c1.set(Calendar.MINUTE, minuto);
-        this.data= c1.getTime();
+        this.data = c1.getTime();
+    }
+    public String getHorario(){
+        String h = horarioToString();
+        return h;
+    }
+    public String horarioToString(){
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        String s = df.format(this.getData());
+        return s;
     }
     
      public String dataToString(){
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         String s = df.format(this.getData());
         return s;
      }
@@ -149,17 +201,20 @@ public final class Evento {
         c1.set(Calendar.MINUTE, duracaoMinuto);
         this.duracao = c1.getTime();
     }
-    private Date getDuracao(){
-        return this.duracao;
+    public void setDuracao(String s){
+        
+        this.setDuracao(Integer.parseInt(s.substring(0, 1)),Integer.parseInt(s.substring(3, 4)));
     }
-    private String duracaoToString(){
+    public Date getDuracao(){
+        return duracao;
+    }
+    public String duracaoToString(){
         DateFormat df = new SimpleDateFormat("HH:mm");
         String s = df.format(this.getDuracao());
         return s;
     }
-    
-
+    public void setGlobal(boolean global){
+        this.global = global;
+    }
 
 }
-
-
