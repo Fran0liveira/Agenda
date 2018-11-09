@@ -19,7 +19,8 @@ public final class Evento {
     private String nomeEvento;
     private Date data;
     private boolean global;
-    private Date duracao;
+    private String horario;
+    private String duracao;
     public Agenda agenda;
 
 
@@ -30,14 +31,17 @@ public final class Evento {
         this.setGlobal(global);
         this.setHorario(horario);
         this.setData(data);
+        this.setDuracao(duracao);
     }
     public Evento(String nomeEvento, int dia, int mes, int ano, int hora, int minuto, boolean global, int duracaoHora, int duracaoMinuto){
         this.setId();
         this.setNomeEvento(nomeEvento);
         this.setGlobal(global);
-        this.setData(dia, mes, ano, hora, minuto);
+        this.setData(dia, mes, ano);
+        this.setHorario(hora, minuto);
         this.setDuracao(duracaoHora, duracaoMinuto);
     }
+    
     
     public Evento(String nomeEvento){
         this.setNomeEvento(nomeEvento);
@@ -81,30 +85,6 @@ public final class Evento {
     }
     
     //define a data separando dia, mes, ano, horas, minutos
-    public void setData(int dia, int mes, int ano, int hora, int minuto) {
-        
-        Calendar c1 = GregorianCalendar.getInstance();
-        if(dia < 1 || dia > 30){
-            throw new RuntimeException("Dia informado não é válido!");
-        }
-        if(mes < 1 || mes > 12){
-            throw new RuntimeException("Mês informado não é válido!");
-        }
-        if(ano < c1.get(Calendar.YEAR)){
-            throw new RuntimeException("Ano informado não é válido!");
-        }
-        if(hora < 0 || hora > 24){
-            throw new RuntimeException("Hora informada não é válida");
-        }
-        if(minuto < 0 || minuto > 60){
-            throw new RuntimeException("Minuto informado não é válido");
-        }
-       
-        c1.set(Calendar.YEAR, ano);
-        c1.set(Calendar.MONTH, mes-1);
-        c1.set(Calendar.DAY_OF_MONTH, dia);
-        this.data= c1.getTime();
-    }
     public void setData(int dia, int mes, int ano) {
         
         Calendar c1 = GregorianCalendar.getInstance();
@@ -117,36 +97,37 @@ public final class Evento {
         if(ano < c1.get(Calendar.YEAR)){
             throw new RuntimeException("Ano informado não é válido!");
         }
-        
+       
         c1.set(Calendar.YEAR, ano);
         c1.set(Calendar.MONTH, mes-1);
         c1.set(Calendar.DAY_OF_MONTH, dia);
         this.data= c1.getTime();
     }
+
     public void setData(Calendar data){
         this.data = data.getTime();
         
     }
     public void setHorario(String horario){
+        this.horario = horario;
+    }
+    public void setHorario(int hora, int minuto){
         Calendar c1 = GregorianCalendar.getInstance();
-        
-        int hora = Integer.parseInt(horario.substring(0, 1));
-        int minuto = Integer.parseInt(horario.substring(3, 4));
-        
-        if( hora < 0 || hora > 24){
-            throw new RuntimeException("Hora informada não é válida");
+        if(hora < 0 || hora > 24 ){
+            throw new RuntimeException("As horas informadas são inválidas!"); 
         }
-        if( minuto < 0 || minuto > 60){
-            throw new RuntimeException("Minuto informado não é válido");
+        if(minuto < 0 || minuto > 60){
+            throw new RuntimeException("Os minutos informados são inválidos!"); 
         }
         c1.set(Calendar.HOUR_OF_DAY, hora);
         c1.set(Calendar.MINUTE, minuto);
-        this.data = c1.getTime();
-    }
-    public String horarioToString(){
+        
         DateFormat df = new SimpleDateFormat("HH:mm");
-        String s = df.format(this.getData());
-        return s;
+        String s = df.format(c1.getTime());
+        this.horario = s;
+    }
+    public String getHorario(){
+        return this.horario;
     }
     
      public String dataToString(){
@@ -157,26 +138,36 @@ public final class Evento {
 
     public String eventoToString(){
         StringBuilder sb = new StringBuilder("");
+        
             sb.append("ID do Evento: ");
             sb.append(this.getId());
             sb.append("\n");
+            
             sb.append("Nome do Evento: ");
             sb.append(this.getNome());
             sb.append("\n");
+            
             sb.append("Data do Evento: ");
             sb.append(this.dataToString());
             sb.append("\n");
-            sb.append("Evento é global ?: ");
-            sb.append(this.isGlobal());
+            
+            sb.append("Horário do Evento: ");
+            sb.append(this.getHorario());
             sb.append("\n");
+            
             sb.append("Duraçao do Evento: ");
-            if(this.duracaoToString().equals("00:00")){
+            if(this.getDuracao().equals("00:00")){
                 sb.append("O dia todo");
             }
             else{
-                sb.append(this.duracaoToString());
+                sb.append(this.getDuracao());
             }
             sb.append("\n");
+            
+            sb.append("Evento é global ?: ");
+            sb.append(this.isGlobal());
+            sb.append("\n");
+            
             sb.append("\n");
             return sb.toString();
     
@@ -196,19 +187,17 @@ public final class Evento {
         }
         c1.set(Calendar.HOUR_OF_DAY, duracaoHora);
         c1.set(Calendar.MINUTE, duracaoMinuto);
-        this.duracao = c1.getTime();
-    }
-    public void setDuracao(String s){
         
-        this.setDuracao(Integer.parseInt(s.substring(0, 1)),Integer.parseInt(s.substring(3, 4)));
-    }
-    public Date getDuracao(){
-        return duracao;
-    }
-    public String duracaoToString(){
         DateFormat df = new SimpleDateFormat("HH:mm");
-        String s = df.format(this.getDuracao());
-        return s;
+        String s = df.format(c1.getTime());
+        this.duracao = s;
+        
+    }
+    public void setDuracao(String d){
+        this.duracao = d;
+    }
+    public String getDuracao(){
+        return this.duracao;
     }
     public void setGlobal(boolean global){
         this.global = global;
